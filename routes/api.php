@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\RewardController;
 use App\Http\Controllers\Api\PlanController;
 use App\Http\Controllers\Api\GuardianController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,9 @@ Route::prefix('v1')->group(function () {
         Route::get('/guardians', [GuardianController::class, 'index']);
         Route::post('/guardians/invite', [GuardianController::class, 'invite']);
         Route::delete('/guardians/{guardian}', [GuardianController::class, 'destroy']);
+
+        // Rota para atualizar o valor do ponto do usuário
+        Route::post('/user/point-value', [UserController::class, 'updatePointValue']);
     });
 
 });
