@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ChildController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\RewardController;
+use App\Http\Controllers\Api\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,9 @@ Route::prefix('v1')->group(function () {
     // Rotas de Autenticação (Públicas)
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/login', [AuthController::class, 'login']);
+
+    // Rotas para Planos (Plans)
+    Route::apiResource('plans', PlanController::class)->only(['index']);
 
     // Rotas Protegidas (Requerem autenticação via Sanctum)
     Route::middleware('auth:sanctum')->group(function () {
