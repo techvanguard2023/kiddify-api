@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ChildController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\RewardController;
 use App\Http\Controllers\Api\PlanController;
+use App\Http\Controllers\Api\GuardianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,11 @@ Route::prefix('v1')->group(function () {
             // Resgatar uma recompensa
             Route::post('rewards/{reward}/claim', [RewardController::class, 'claim']);
         });
+
+        // Rotas para Gerenciar Responsáveis
+        Route::get('/guardians', [GuardianController::class, 'index']);
+        Route::post('/guardians/invite', [GuardianController::class, 'invite']);
+        Route::delete('/guardians/{guardian}', [GuardianController::class, 'destroy']);
     });
 
 });

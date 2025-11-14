@@ -66,5 +66,12 @@ class User extends Authenticatable
         return $this->hasMany(Subscription::class);
     }
 
-    
+    /**
+     * Get all of the guardians for the user.
+     */
+    public function guardians(): HasMany
+    {
+        return $this->hasMany(Guardian::class);
+    }
+
 }
