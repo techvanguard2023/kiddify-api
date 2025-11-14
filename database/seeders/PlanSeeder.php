@@ -21,7 +21,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Mensal',
                 'description' => 'Flexibilidade total. Cancele quando quiser.',
-                'price' => 19.00,
+                'price' => 9.90,
                 'period' => 'monthly',
                 'is_free' => false,
                 'popular' => false,
@@ -31,7 +31,7 @@ class PlanSeeder extends Seeder
             [
                 'name' => 'Anual',
                 'description' => 'Economize 2 meses com o plano anual!',
-                'price' => 190.00,
+                'price' => 99.00,
                 'period' => 'yearly',
                 'is_free' => false,
                 'popular' => true,
