@@ -45,4 +45,15 @@ class RewardController extends Controller
 
         return response()->json($child->fresh('rewards'));
     }
+
+    // Exemplo no RewardController.php
+    public function destroy(Child $child, Reward $reward)
+    {
+        // A política de autorização (Policy) garantiria que o usuário pode fazer isso.
+        Gate::authorize('delete', $reward);
+
+        $reward->delete();
+
+        return response()->json(['message' => 'Recompensa apagada com sucesso.']);
+    }
 }

@@ -28,4 +28,21 @@ class Subscription extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Escopo útil para pegar assinaturas ativas "hoje"
+    public function scopeActive($query)
+    {
+        return $query
+            ->where('status', 'active')
+            ->whereDate('start_date', '<=', now())
+            ->whereDate('end_date', '>=', now());
+    }
+
+    // Atributo conveniente
+    public function getIsActiveAttribute(): bool
+    {
+        return $this->status === 'active'
+            && $this->start_date->lte(now())
+            && $this->end_date->gte(now());
+    }
 }

@@ -52,4 +52,14 @@ class TaskController extends Controller
 
         return response()->json($child->fresh(['tasks', 'taskHistory']));
     }
+
+    // Exemplo no TaskController.php
+    public function destroy(Child $child, Task $task)
+    {
+        Gate::authorize('delete', $task);
+
+        $task->delete();
+
+        return response()->json(['message' => 'Tarefa apagada com sucesso.']);
+    }
 }
