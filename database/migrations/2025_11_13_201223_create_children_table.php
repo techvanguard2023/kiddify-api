@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('avatar_url')->nullable();
             $table->integer('points')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('points');
             $table->enum('type', ['single', 'recurring']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

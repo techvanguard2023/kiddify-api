@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('points');
             $table->timestamp('date_completed');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
