@@ -40,8 +40,7 @@ Route::prefix('v1')->group(function () {
         // Rotas para Crianças (Children)
         Route::apiResource('children', ChildController::class)->only(['index', 'store']);
 
-        Route::delete('/children/{child}/tasks/{task}', [TaskController::class, 'destroy']);
-        Route::delete('/children/{child}/rewards/{reward}', [RewardController::class, 'destroy']);
+    
 
         // Rotas aninhadas para Tarefas (Tasks) de uma Criança
         Route::prefix('children/{child}')->scopeBindings()->group(function() {
@@ -55,6 +54,9 @@ Route::prefix('v1')->group(function () {
             Route::post('rewards', [RewardController::class, 'store']);
             // Resgatar uma recompensa
             Route::post('rewards/{reward}/claim', [RewardController::class, 'claim']);
+
+            Route::delete('tasks/{task}', [TaskController::class, 'destroy']);
+            Route::delete('rewards/{reward}', [RewardController::class, 'destroy']);
             
         });
 
