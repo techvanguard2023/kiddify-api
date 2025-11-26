@@ -25,6 +25,18 @@ class Task extends Model
     ];
 
     /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'type' => \App\Enums\TaskType::class,
+        ];
+    }
+
+    /**
      * Get the child that owns the task.
      * Uma tarefa pertence a uma criança.
      */

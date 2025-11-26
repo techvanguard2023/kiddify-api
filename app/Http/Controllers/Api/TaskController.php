@@ -12,45 +12,22 @@ use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
-    public function store(Request $request, Child $child)
+    public function store(\App\Http\Requests\StoreTaskRequest $request, Child $child)
     {
         Gate::authorize('update', $child); // Garante que o usuário logado é dono da criança
 
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'points' => 'required|integer|min:1',
-            'type' => 'required|in:single,recurring',
-        ]);
+        $task = $child->tasks()->create($request->validated());
 
-        $task = $child->tasks()->create($validatedData);
-
-        return response()->json($task, 201);
+        return new \App\Http\Resources\TaskResource($task);
     }
 
-    public function complete(Request $request, Child $child, Task $task)
+    public function complete(Request $request, Child $child, Task $task, \App\Services\TaskService $taskService)
     {
         Gate::authorize('update', $child);
 
-        DB::transaction(function () use ($child, $task) {
-            // Adiciona pontos à criança
-            $child->increment('points', $task->points);
+        $updatedChild = $taskService->completeTask($child, $task);
 
-            // Cria um registro no histórico
-            $child->taskHistory()->create([
-                'task_id' => $task->id,
-                'task_name' => $task->name,
-                'points' => $task->points,
-                'date_completed' => now(),
-            ]);
-
-            // Se a tarefa for do tipo 'única', remove-a
-            if ($task->type === 'single') {
-                $task->delete();
-            }
-        });
-
-        return response()->json($child->fresh(['tasks', 'taskHistory']));
+        return response()->json($updatedChild);
     }
 
     // Exemplo no TaskController.php
